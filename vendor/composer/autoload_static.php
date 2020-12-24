@@ -41,11 +41,27 @@ class ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Twitter\\Text\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/nojimage/twitter-text-php/lib',
+            ),
+        ),
+    );
+
+    public static $classMap = array (
+        'TwitterAPIExchange' => __DIR__ . '/..' . '/j7mbo/twitter-api-php/TwitterAPIExchange.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$classMap;
 
         }, null, ClassLoader::class);
     }
