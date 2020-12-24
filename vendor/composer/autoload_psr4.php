@@ -6,7 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
+    'Symfony\\Contracts\\Translation\\' => array($vendorDir . '/symfony/translation-contracts'),
+    'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Morilog\\Jalali\\' => array($vendorDir . '/morilog/jalali/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
+    'GDText\\Tests\\' => array($vendorDir . '/stil/gd-text/tests'),
+    'GDText\\' => array($vendorDir . '/stil/gd-text/src'),
+    'Assert\\' => array($vendorDir . '/beberlei/assert/lib/Assert'),
+    'ArUtil\\' => array($vendorDir . '/arutil/ar-php/src/ArUtil'),
+    '' => array($vendorDir . '/nesbot/carbon/src'),
 );

@@ -10,9 +10,9 @@ $settings = array(
     'consumer_key' => "fblz9XthCfG6m9iqCBbEWdJYF",
     'consumer_secret' => "Yj7k0ltvGQFPzN5tGN1ZFjXcF5caf0zFvQ2YZbiO8JVSNfMh1e"
 );
-// https://twitter.com/AmirMehrabian/status/1338489468538531840
-$url = 'https://api.twitter.com/1.1/statuses/show/1338489468538531840.json';
-$getfield = '&texst=';
+$tweeUrl = "https://twitter.com/FaridArzpeyma/status/1341981136306593793";
+$url = 'https://api.twitter.com/1.1/statuses/show/'.basename($tweeUrl).'.json';
+$getfield = '&tweet_mode=extended&texst=';
 $requestMethod = 'GET';
 $twitter = new TwitterAPIExchange($settings);
 $tweet = $twitter->setGetfield($getfield)->buildOauth($url, $requestMethod)
@@ -20,11 +20,13 @@ $tweet = $twitter->setGetfield($getfield)->buildOauth($url, $requestMethod)
 
              $tweet = get_object_vars(json_decode($tweet));
             $user = get_object_vars($tweet['user']);
-             var_dump($user['profile_image_url']);
+             var_dump($tweet);
 // import the Intervention Image Manager Class
 use Intervention\Image\ImageManagerStatic as Image;
 
-
+$pattern = "/[a-zA-Z]*[:\/\/]*[A-Za-z0-9\-_]+\.+[A-Za-z0-9\.\/%&=\?\-_]+/i";
+$replacement = "";
+$tweet['full_text'] = preg_replace($pattern, $replacement, $tweet['full_text']);
 
  function per_text($str)
 {
@@ -46,33 +48,58 @@ use Intervention\Image\ImageManagerStatic as Image;
 
     return $str = implode("\n", $str);
 }
+$text = $tweet['full_text'];
+$max_len = 95;
+$lines = explode("\n", wordwrap($text, $max_len));
+
 
 // configure with favored image driver (gd by default)
 Image::configure(array('driver' => 'imagick'));
 
-// and you are ready to go ...
-
-// $img->text('The quick brown fox jumps over the lazy dog.');
-
-// write text at position
-// $img->text('The quick brown fox jumps over the lazy dog.', 120, 100);
-
-// use callback to define details
-
 $width       = 500;
 $height      = 500;
-$center_x    = $width - 25;
+
+if($tweet['lang'] == 'en') {
+    $center_x    =  25;
+} else {
+    $center_x    = $width - 25;
+
+}
 $center_y    = 190;
-$max_len     = 80;
 $font_size   = 23;
 $font_height = 17;
+$max_len     = 80;
 
-$text = $tweet['text'];
+
+if(count($lines) < 4) {
+    
+    $font_size   = 23;
+    $font_height = 17;
+
+
+} elseif(count($lines) < 7) {
+    $font_size   = 19;
+    $font_height = 16;
+
+
+} elseif(count($lines) <= 10){
+    echo "we here";
+    $font_size   = 16;
+    $font_height = 13;
+}
+
+
 
 // $text = 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است';
 
-$lines = explode("\n", wordwrap($text, $max_len));
-$y     = $center_y - ((count($lines) - 1) * $font_height);
+// echo "<br><br><br><br>";
+// var_dump(count($lines));
+// echo "<br><br><br><br>";
+// $y     = $center_y - ((count($lines) - 1) * $font_height);
+$y = 150;
+// echo "<br><br><br><br>";
+// var_dump($y);
+// echo "<br><br><br><br>";
 // $img   = Image::canvas($width, $height, '#777');
 $img = Image::make('white.jpg');
 
@@ -96,7 +123,7 @@ $img->text('(@'.$user['screen_name'].')', 250, 95, function($font) use ($font_si
 });
 
 // Date
-$img->text(per_text($tweet['created_at']), 250, 120, function($font) use ($font_size){
+$img->text(per_text(\Morilog\Jalali\Jalalian::forge($tweet['created_at'])->format('l j F Y - H:i')), 250, 120, function($font) use ($font_size){
 	$font->file('/var/www/html/pikaso/fonts/IRANSansWeb.ttf');
 	$font->size(15);
 	$font->color('#00dcff');
@@ -104,23 +131,23 @@ $img->text(per_text($tweet['created_at']), 250, 120, function($font) use ($font_
 	$font->valign('top');
 });
 
-$watermark = Image::make('https://pbs.twimg.com/profile_images/1138606091971862529/8iTsLwr-_normal.png');
-$watermark->circle($watermark->getWidth(), $watermark->getWidth()/2, $watermark->getHeight()/2, function ($draw) {
-    $draw->background('#fff');
-});
+$watermark = Image::make($user['profile_image_url']);
 $img->insert($watermark, 'top-center', 10, 10);
-
 foreach ($lines as $line)
 {
-    $img->text(per_text($line), $center_x, $y, function($font) use ($font_size){
+    $img->text( per_text($line), 250, $y, function($font) use ($font_size, $font_height, $tweet){
 		$font->file('/var/www/html/pikaso/fonts/IRANSansWeb.ttf');
 		$font->size($font_size);
-		$font->color('#111');
-		$font->align('right');
+        $font->color('#111');
+        if($tweet['lang'] == 'en') {
+            $font->align('center');
+        } else {
+            $font->align('center');        
+        }
 		$font->valign('top');
     });
 
-    $y += $font_height * 2;
+    $y += $font_height + ($font_height - $font_height / 3);
 }
 
 

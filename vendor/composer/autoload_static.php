@@ -7,14 +7,28 @@ namespace Composer\Autoload;
 class ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999
 {
     public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a4ecaeafb8cfb009ad0e052c90355e98' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/functions.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '5c2d85893561f32833ee6e2e0f8ca5d1' => __DIR__ . '/..' . '/arutil/ar-php/src/bootstrap.php',
+        'e4e590a9b5afe940db71ee1662c02677' => __DIR__ . '/..' . '/morilog/jalali/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Contracts\\Translation\\' => 30,
+            'Symfony\\Component\\Translation\\' => 30,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
+        ),
+        'M' => 
+        array (
+            'Morilog\\Jalali\\' => 15,
         ),
         'I' => 
         array (
@@ -23,13 +37,36 @@ class ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
+            'GDText\\Tests\\' => 13,
+            'GDText\\' => 7,
+        ),
+        'A' => 
+        array (
+            'Assert\\' => 7,
+            'ArUtil\\' => 7,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Contracts\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
+        ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Morilog\\Jalali\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/morilog/jalali/src',
         ),
         'Intervention\\Image\\' => 
         array (
@@ -39,9 +76,36 @@ class ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
+        'GDText\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stil/gd-text/tests',
+        ),
+        'GDText\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stil/gd-text/src',
+        ),
+        'Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/beberlei/assert/lib/Assert',
+        ),
+        'ArUtil\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/arutil/ar-php/src/ArUtil',
+        ),
+    );
+
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
     );
 
     public static $prefixesPsr0 = array (
+        'U' => 
+        array (
+            'UpdateHelper\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/kylekatarnls/update-helper/src',
+            ),
+        ),
         'T' => 
         array (
             'Twitter\\Text\\' => 
@@ -60,6 +124,7 @@ class ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitf6e30b78fd79c0482a6b5864079e3999::$classMap;
 
